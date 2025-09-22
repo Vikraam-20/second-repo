@@ -1,0 +1,32 @@
+import subprocess
+
+def run_command(cmd):
+    """Run a shell command and return output or raise an error."""
+    result = subprocess.run(cmd, shell=True, text=True, capture_output=True)
+    if result.returncode != 0:
+        raise Exception(f"Command failed: {cmd}\nError: {result.stderr.strip()}")
+    return result.stdout.strip()
+
+def git_checkout(branch):
+    print(f"Checking out branch: {branch}")
+    run_command(f"git checkout {branch}")
+
+def git_pull(branch):
+    print(f"Pulling latest changes from origin/{branch}")
+    run_command(f"git pull origin {branch}")
+
+def git_rebase(branch):
+    print(f"Rebasing current branch onto {branch}")
+    run_command(f"git rebase {branch}")
+
+def main():
+    try:
+        git_checkout("feature-branch")
+        git_pull("feature-branch")
+        git_rebase("main")
+        print("Rebase completed successfully!")
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()
