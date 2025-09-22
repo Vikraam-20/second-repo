@@ -1,6 +1,6 @@
 import subprocess
 
-def run_command(cmd):
+def:
     """Run a shell command and return output or raise an error."""
     result = subprocess.run(cmd, shell=True, text=True, capture_output=True)
     if result.returncode != 0:
